@@ -11,8 +11,6 @@ src_widget/test/.project
 *.lock
 .idea/
 
-dist/
-
 src_widget/node_modules/
 .editorconfig
 *DS_Store*
