@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.mendix.com/package/1.0/">
+  <modelerProject xmlns="http://www.mendix.com/modelerProject/1.0/">
+    <module name="MobilePINLogin" />
+    <projectFile path="project.mpr" />
+    <files>
+      <file path="javasource\mobilepinlogin\actions\LoginHandler.java" />
+      <file path="javasource\mobilepinlogin\actions\custom\LoginPINRequestHandler.java" />
+      <file path="userlib\commons-codec-1.10.jar" />
+      <file path="userlib\commons-io-2.4.jar" />
+      <file path="userlib\json-simple.jar" />
+      <file path="widgets\MobilePIN.mpk" />
+    </files>
+  </modelerProject>
+</package>
