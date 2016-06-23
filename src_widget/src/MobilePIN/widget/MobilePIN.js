@@ -358,7 +358,13 @@ define([
 
             if (!dojoDom.byId("mobilePINLogin")) {
                 logger.debug(this.id + "._showLoginIfNoToken no #mobilePINLogin, creating");
-                var domNode = domConstruct.toDom(loginTemplate);
+
+                var template = loginTemplate;
+                template = template.replace("{{username_caption}}", this.strUsername);
+                template = template.replace("{{password_caption}}", this.strPassword);
+                template = template.replace("{{submit_caption}}", this.strSubmit);
+
+                var domNode = domConstruct.toDom(template);
                 domConstruct.place(domNode, this.domNode);
 
                 $("#loginText").html(this._loginText);
@@ -689,28 +695,26 @@ define([
 
         _updateInterface: function () {
             logger.debug(this.id + "._updateInterface");
-            if (this._contextObj !== null) {
-                logger.debug(this.id + "._updateInterface this._contextObj !== null", this._contextObj);
-                this._contextObj.fetch(this.pinAfterLoginText, lang.hitch(this, function (value) {
-                    $("#pinAfterLoginText").html(value);
-                    this._pinAfterLoginText = value;
+
+            this._setCaption("_pinAfterLoginText", "trPinAfterLoginText", "pinAfterLoginText", "#pinAfterLoginText");
+            this._setCaption("_loginText", "trLoginText", "loginText", "#loginText");
+            this._setCaption("_pinText", "trPinLoginText", "pinLoginText", "#pinText");
+            this._setCaption("_pinOptionalText", "trPinOptionalText", "pinOptionalText", "#pin-usePinLabel");
+            this._setCaption("_forgotPinText", "trForgotPinText", "forgotPinText", "#forgotPin");
+        },
+
+        _setCaption: function (internal, translatable, attribute, element) {
+            logger.debug(this.id + "._setCaption: " + internal);
+            if (this[translatable] !== "") {
+                this[internal] = this[translatable];
+                $(element).html(this[translatable]);
+            } else if (this._contextObj !== null && this[attribute] !== "") {
+                this._contextObj.fetch(this[attribute], lang.hitch(this, function (value) {
+                    $(element).html(value);
+                    this[internal] = value;
                 }));
-                this._contextObj.fetch(this.loginText, lang.hitch(this, function (value) {
-                    $("#loginText").html(value);
-                    this._loginText = value;
-                }));
-                this._contextObj.fetch(this.pinLoginText, lang.hitch(this, function (value) {
-                    $("#pinText").html(value);
-                    this._pinText = value;
-                }));
-                this._contextObj.fetch(this.pinOptionalText, lang.hitch(this, function (value) {
-                    $("#pin-usePinLabel").html(value);
-                    this._pinOptionalText = value;
-                }));
-                this._contextObj.fetch(this.forgotPinText, lang.hitch(this, function (value) {
-                    $("#forgotPin").html(value);
-                    this._forgotPinText = value;
-                }));
+            } else {
+                this[internal] = "";
             }
         },
 
