@@ -8,8 +8,11 @@
     "eqeqeq"   : true,
     "undef"    : true,
     "globals"  : {
-        "mendix" : false,
-        "mx"     : false
+        "mendix"   : false,
+        "mx"       : false,
+        "logger"   : false,
+        "device"   : false,
+        "CryptoJS" : false
     },
 
     // Relaxing

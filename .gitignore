@@ -12,6 +12,7 @@ src_widget/test/.project
 .idea/
 
 src_widget/node_modules/
+src_widget/dist/
 .editorconfig
 *DS_Store*
 .vscode/

@@ -54,7 +54,7 @@ define([
             document.addEventListener("deviceready", lang.hitch(this, this._onDeviceReady), false);
 
             // Determine click event
-            this._clickEvent = ((document.ontouchstart == null) ? "click" : "touchstart");
+            this._clickEvent = ((document.ontouchstart === null) ? "click" : "touchstart");
 
             // Create Mobile PIN
             this._createMobilePIN();
@@ -129,8 +129,8 @@ define([
             _encryptedUsername = null;
 
             // Get encrypted token and username
-            _encryptedToken = localStorage.getItem('mpinToken');
-            _encryptedUsername = localStorage.getItem('mpinUser');
+            _encryptedToken = localStorage.getItem("mpinToken");
+            _encryptedUsername = localStorage.getItem("mpinUser");
 
             // Decrypt token and username.
             try {
@@ -193,8 +193,8 @@ define([
 
         _loginFailed: function () {
             logger.debug(this.id + "._loginFailed");
-            localStorage.setItem('mpinToken', '');
-            localStorage.setItem('mpinUser', '');
+            localStorage.setItem("mpinToken", "");
+            localStorage.setItem("mpinUser", "");
             this._showMobilePINLogin();
             $("#_pinUser").val("");
             $("#_pinPassword").val("");
@@ -219,7 +219,7 @@ define([
                 $("#mobilePINNewBody").removeClass("hide");
 
                 dojoDom.byId("_pinNew1").focus();
-                //setTimeout(function () { document.getElementById('_pinNew1').focus(); }, 10);
+                //setTimeout(function () { document.getElementById("_pinNew1").focus(); }, 10);
 
                 // Timeout is to fix the focus in IE (http://stackoverflow.com/questions/2600186/focus-doesnt-work-in-ie)
 
@@ -228,7 +228,7 @@ define([
                     logger.debug(this.id + "._pinNew1 keyup");
                     if (isNaN($("#_pinNew1").val())) {
                         dojoDom.byId("_pinNew1").focus();
-                        $("#_pinNew1").val('');
+                        $("#_pinNew1").val("");
                     } else {
                         dojoDom.byId("_pinNew2").focus();
                         this._pinCode += $("#_pinNew1").val();
@@ -240,7 +240,7 @@ define([
                     logger.debug(this.id + "._pinNew2 keyup");
                     if (isNaN($("#_pinNew2").val())) {
                         dojoDom.byId("_pinNew2").focus();
-                        $("#_pinNew2").val('');
+                        $("#_pinNew2").val("");
                     } else {
                         dojoDom.byId("_pinNew3").focus();
                         this._pinCode += $("#_pinNew2").val();
@@ -252,7 +252,7 @@ define([
                     logger.debug(this.id + "._pinNew3 keyup");
                     if (isNaN($("#_pinNew3").val())) {
                         dojoDom.byId("_pinNew3").focus();
-                        $("#_pinNew3").val('');
+                        $("#_pinNew3").val("");
                     } else {
                         dojoDom.byId("_pinNew4").focus();
                         this._pinCode += $("#_pinNew3").val();
@@ -264,7 +264,7 @@ define([
                     logger.debug(this.id + "._pinNew4 keyup");
                     if (isNaN($("#_pinNew4").val())) {
                         dojoDom.byId("_pinNew4").focus();
-                        $("#_pinNew4").val('');
+                        $("#_pinNew4").val("");
                     } else {
                         dojoDom.byId("_pinNew5").focus();
                         this._pinCode += $("#_pinNew4").val();
@@ -276,7 +276,7 @@ define([
                     logger.debug(this.id + "._pinNew5 keyup");
                     if (isNaN($("#_pinNew5").val())) {
                         dojoDom.byId("_pinNew5").focus();
-                        $("#_pinNew5").val('');
+                        $("#_pinNew5").val("");
                     } else {
                         this._pinCode += $("#_pinNew5").val();
                         logger.debug(this.id + "._pinNew5 final, _pinCode = " + this._pinCode);
@@ -321,8 +321,8 @@ define([
                 _encryptedUsername = CryptoJS.AES.encrypt($("#_pinUser").val(), "MPINVERSION1_" + this._pinCode);
 
                 // Save encrypted username and password
-                localStorage.setItem('mpinToken', _encryptedToken);
-                localStorage.setItem('mpinUser', _encryptedUsername);
+                localStorage.setItem("mpinToken", _encryptedToken);
+                localStorage.setItem("mpinUser", _encryptedUsername);
                 logger.debug(this.id + "._renderResultIfLoginAndNoToken set localStorage with pincode " + this._pinCode + ", encToken: " + _encryptedToken + ", encUser: " + _encryptedUsername);
             }
 
@@ -370,17 +370,17 @@ define([
                     this._loginVerifyIfNoToken();
                 }));
 
-                this.connect(dojoDom.byId("pin-usePin"), 'onchange', lang.hitch(this, this._onChangeUsePinCheckbox));
+                this.connect(dojoDom.byId("pin-usePin"), "onchange", lang.hitch(this, this._onChangeUsePinCheckbox));
                 this._setCheckboxForUsePinToken();
             }
 
             this._showMobilePINLogin();
 
-            var $mobilePinBody = $('#mobilePINBody');
-            $mobilePinBody.addClass('hide');
+            var $mobilePinBody = $("#mobilePINBody");
+            $mobilePinBody.addClass("hide");
 
             // Check if there was an error send with it.
-            if (typeof err == "undefined" || err == "") {
+            if (typeof err === "undefined" || err === "") {
                 $("#pin-error").html();
             } else {
                 $("#pin-error").html("<div class=\"alert alert-danger\" role=\"alert\">" + err + "</div>");
@@ -471,7 +471,7 @@ define([
             // Check out if we have local storage or not?!
             if (this._supportLocalStorage()) {
 
-                var mpinToken = localStorage.getItem('mpinToken');
+                var mpinToken = localStorage.getItem("mpinToken");
 
                 if (typeof mpinToken !== "undefined" && mpinToken !== "" && mpinToken !== null) {
                     logger.debug(this.id + "._checkForAToken has mpinToken :: Mobile PIN Login - Step 2 - start executing _loginIfToken()");
@@ -493,7 +493,7 @@ define([
             //console.log("Use Optional Pin - Checking for usePinToken ");
             if (this._supportLocalStorage()) {
 
-                var mUsePinToken = localStorage.getItem('mUsePinToken');
+                var mUsePinToken = localStorage.getItem("mUsePinToken");
 
                 if (typeof mUsePinToken !== "undefined" && mUsePinToken !== "" && mUsePinToken !== null) {
                     logger.debug(this.id + "._checkForUsePinToken has mUsePinToken :: Use Optional Pin - Found token with value:" + mUsePinToken);
@@ -514,7 +514,7 @@ define([
             //console.log("Use Optional Pin - Checking for usePinToken ");
             if (this._supportLocalStorage()) {
 
-                var mUsePinToken = localStorage.getItem('mUsePinToken');
+                var mUsePinToken = localStorage.getItem("mUsePinToken");
 
                 if (typeof mUsePinToken !== "undefined" && mUsePinToken !== "" && mUsePinToken !== null) {
                     logger.debug(this.id + "._setCheckboxForUsePinToken has mpinToken :: Use Optional Pin - Found token with value:" + mUsePinToken);
@@ -531,20 +531,20 @@ define([
         _setUsePinCheckbox: function (val) {
             logger.debug(this.id + "._setUsePinCheckbox, val: ", val);
             //console.log("Use Optional Pin - Setting use pin checkbox to: ", val);
-            $('#pin-usePin').prop('checked', val === "true"); // Localstorage doesnt support booleans, so its "true"
+            $("#pin-usePin").prop("checked", val === "true"); // Localstorage doesnt support booleans, so its "true"
         },
 
         _onChangeUsePinCheckbox: function () {
             logger.debug(this.id + "._onChangeUsePinCheckbox");
             //console.log("Use Optional Pin - Use Pin checkbox clicked! ");
 
-            var value = $('#pin-usePin').prop('checked');
+            var value = $("#pin-usePin").prop("checked");
 
             if (this._supportLocalStorage()) {
-                localStorage.setItem('mUsePinToken', value);
+                localStorage.setItem("mUsePinToken", value);
                 if (value === false) {
-                    localStorage.removeItem('mpinUser');
-                    localStorage.removeItem('mpinToken');
+                    localStorage.removeItem("mpinUser");
+                    localStorage.removeItem("mpinToken");
                 }
             } else {
                 //console.log("Mobile PIN Login - No support for local storage!");
@@ -579,7 +579,7 @@ define([
         },
         _pauseMobilePIN: function () {
             logger.debug(this.id + "._pauseMobilePIN");
-            var mpinToken = localStorage.getItem('mpinToken');
+            var mpinToken = localStorage.getItem("mpinToken");
             if (typeof mpinToken !== "undefined" && mpinToken !== "" && mpinToken !== null) {
                 logger.debug(this.id + "._pauseMobilePIN has mpinToken");
                 this._pinCode = "";
@@ -618,7 +618,7 @@ define([
                     this._showLoginIfNoToken();
                 }));
 
-                //setTimeout(function() { document.getElementById('_pin1').focus(); }, 10);
+                //setTimeout(function() { document.getElementById("_pin1").focus(); }, 10);
                 // Timeout is to fix the focus in IE (http://stackoverflow.com/questions/2600186/focus-doesnt-work-in-ie)
                 dojoDom.byId("_pin1").focus();
 
@@ -627,7 +627,7 @@ define([
                     logger.debug(this.id + "._pin1 keyup");
                     if (isNaN($("#_pin1").val())) {
                         dojoDom.byId("_pin1").focus();
-                        $("#_pin1").val('');
+                        $("#_pin1").val("");
                     } else {
                         dojoDom.byId("_pin2").focus();
                         this._pinCode += $("#_pin1").val();
@@ -639,7 +639,7 @@ define([
                     logger.debug(this.id + "._pin2 keyup");
                     if (isNaN($("#_pin2").val())) {
                         dojoDom.byId("_pin2").focus();
-                        $("#_pin2").val('');
+                        $("#_pin2").val("");
                     } else {
                         dojoDom.byId("_pin3").focus();
                         this._pinCode += $("#_pin2").val();
@@ -651,7 +651,7 @@ define([
                     logger.debug(this.id + "._pin3 keyup");
                     if (isNaN($("#_pin3").val())) {
                         dojoDom.byId("_pin3").focus();
-                        $("#_pin3").val('');
+                        $("#_pin3").val("");
                     } else {
                         dojoDom.byId("_pin4").focus();
                         this._pinCode += $("#_pin3").val();
@@ -663,7 +663,7 @@ define([
                     logger.debug(this.id + "._pin4 keyup");
                     if (isNaN($("#_pin4").val())) {
                         dojoDom.byId("_pin4").focus();
-                        $("#_pin4").val('');
+                        $("#_pin4").val("");
                     } else {
                         dojoDom.byId("_pin5").focus();
                         this._pinCode += $("#_pin4").val();
@@ -675,7 +675,7 @@ define([
                     logger.debug(this.id + "._pin5 keyup");
                     if (isNaN($("#_pin5").val())) {
                         dojoDom.byId("_pin5").focus();
-                        $("#_pin5").val('');
+                        $("#_pin5").val("");
                     } else {
                         this._pinCode += $("#_pin5").val();
                         document.getElementById("_pin5").blur();
@@ -731,6 +731,5 @@ define([
         }
     });
 });
-require(["MobilePIN/widget/MobilePIN"], function () {
-    "use strict";
-});
+
+require(["MobilePIN/widget/MobilePIN"]);
