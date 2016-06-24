@@ -54,7 +54,7 @@ define([
             document.addEventListener("deviceready", lang.hitch(this, this._onDeviceReady), false);
 
             // Determine click event
-            this._clickEvent = ((document.ontouchstart === null) ? "click" : "touchstart");
+            this._clickEvent = ((document.ontouchstart == null) ? "click" : "touchstart");
 
             // Create Mobile PIN
             this._createMobilePIN();
